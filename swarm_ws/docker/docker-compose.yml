@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  swarm_dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: swarm_development
+    volumes:
+      - ..:/workspace
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/root/.Xauthority:rw
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=0
+    ports:
+      - "14540:14540"  # MAVSDK port 1
+      - "14541:14541"  # MAVSDK port 2
+      - "14542:14542"  # MAVSDK port 3
+      - "11311:11311"  # ROS master
+    network_mode: host
+    privileged: true
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+  # Optional: PX4 SITL instances
+  px4_sitl_1:
+    image: px4io/px4-dev-ros2-humble:latest
+    container_name: px4_sitl_1
+    environment:
+      - ROS_DOMAIN_ID=0
+    ports:
+      - "14540:14540"
+    volumes:
+      - ..:/workspace
+    command: >
+      bash -c "
+        cd /workspace &&
+        make px4_sitl gz_x500
+      "
+
+  px4_sitl_2:
+    image: px4io/px4-dev-ros2-humble:latest
+    container_name: px4_sitl_2
+    environment:
+      - ROS_DOMAIN_ID=0
+    ports:
+      - "14541:14541"
+    volumes:
+      - ..:/workspace
+    command: >
+      bash -c "
+        cd /workspace &&
+        make px4_sitl gz_x500
+      "
+
+  px4_sitl_3:
+    image: px4io/px4-dev-ros2-humble:latest
+    container_name: px4_sitl_3
+    environment:
+      - ROS_DOMAIN_ID=0
+    ports:
+      - "14542:14542"
+    volumes:
+      - ..:/workspace
+    command: >
+      bash -c "
+        cd /workspace &&
+        make px4_sitl gz_x500
+      "

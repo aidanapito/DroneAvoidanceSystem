@@ -1,0 +1,68 @@
+# Swarm Core Configuration Parameters
+
+# UAV Configuration
+uav:
+  count: 3
+  names: ["uav1", "uav2", "uav3"]
+  takeoff_height: 5.0  # meters
+  max_velocity: 3.0    # m/s
+  safety_radius: 1.5   # meters
+
+# ORCA Collision Avoidance Parameters
+orca:
+  neighbor_dist: 10.0      # meters - max distance to consider neighbors
+  time_horizon: 2.0        # seconds - prediction horizon
+  max_speed: 3.0           # m/s - maximum allowed velocity
+  safety_margin: 0.2       # meters - additional safety buffer
+  update_rate: 50.0        # Hz - collision avoidance update frequency
+
+# Coverage Parameters
+coverage:
+  grid_resolution: 0.5     # meters - occupancy grid cell size
+  world_bounds:
+    x_min: -20.0
+    x_max: 20.0
+    y_min: -20.0
+    y_max: 20.0
+  min_coverage_threshold: 0.95  # 95% coverage target
+  target_selection:
+    method: "round_robin"  # or "k_means", "voronoi"
+    update_frequency: 1.0  # Hz - how often to reassign targets
+
+# Control Parameters
+control:
+  offboard_rate: 50.0      # Hz - MAVSDK setpoint rate
+  position_tolerance: 0.5   # meters - goal reaching tolerance
+  velocity_tolerance: 0.1   # m/s - velocity tracking tolerance
+  max_acceleration: 2.0     # m/s² - maximum acceleration
+
+# Safety Parameters
+safety:
+  min_separation: 1.0      # meters - minimum allowed separation
+  emergency_stop_distance: 0.8  # meters - trigger emergency stop
+  max_altitude: 15.0       # meters - maximum allowed altitude
+  geofence:
+    x_min: -25.0
+    x_max: 25.0
+    y_min: -25.0
+    y_max: 25.0
+
+# Communication Parameters
+communication:
+  heartbeat_timeout: 2.0    # seconds - UAV heartbeat timeout
+  status_publish_rate: 10.0 # Hz - status message rate
+  coverage_map_rate: 5.0    # Hz - coverage map update rate
+
+# Logging Parameters
+logging:
+  rosbag_duration: 600      # seconds - maximum rosbag recording time
+  log_level: "INFO"         # DEBUG, INFO, WARN, ERROR
+  save_trajectories: true   # save UAV trajectories to file
+  evaluation_report: true   # generate performance report
+
+# Simulation Parameters
+simulation:
+  gazebo_world: "cluttered" # default world to load
+  px4_sitl_ports: [50051, 50052, 50053]  # MAVSDK connection ports
+  enable_visualization: true
+  rviz_config: "swarm_visualization.rviz"

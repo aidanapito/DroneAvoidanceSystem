@@ -1,0 +1,18 @@
+# Core dependencies
+numpy>=1.21.0
+scipy>=1.7.0
+
+# MAVSDK (for PX4 communication)
+mavsdk>=0.4.0
+
+# Optional: RVO2 for advanced ORCA implementation
+# rvo2>=1.0.0
+
+# Testing dependencies
+pytest>=6.0.0
+pytest-cov>=2.0.0
+
+# Development dependencies
+black>=21.0.0
+flake8>=3.9.0
+mypy>=0.910
