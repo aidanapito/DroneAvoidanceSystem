@@ -71,7 +71,7 @@ class SimpleControlTester:
                 message.update(params)
             
             data = json.dumps(message).encode('utf-8')
-            self.sockets[port].sendto(data, ('localhost', port))
+            self.sockets[port].sendto(data, ('127.0.0.1', port))
             
             print(f"   📤 Sent: {command}")
             

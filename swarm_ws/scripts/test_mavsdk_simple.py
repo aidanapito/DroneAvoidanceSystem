@@ -27,9 +27,9 @@ class SimpleConnectionTester:
     def __init__(self):
         self.connections: Dict[str, System] = {}
         self.connection_strings = {
-            "uav1": "udp://:14540",
-            "uav2": "udp://:14541", 
-            "uav3": "udp://:14542"
+            "uav1": "udpin://0.0.0.0:14540",
+            "uav2": "udpin://0.0.0.0:14541", 
+            "uav3": "udpin://0.0.0.0:14542"
         }
     
     async def test_connection(self, uav_id: str, connection_string: str) -> bool:
@@ -56,7 +56,7 @@ class SimpleConnectionTester:
             # Wait for connection with timeout
             connection_future = asyncio.create_task(self._wait_for_connection(drone))
             try:
-                await asyncio.wait_for(connection_future, timeout=5.0)
+                await asyncio.wait_for(connection_future, timeout=2.0)
                 print(f"   ✅ {uav_id} connected successfully!")
                 self.connections[uav_id] = drone
                 return True

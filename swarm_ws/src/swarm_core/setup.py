@@ -28,6 +28,8 @@ setup(
             'coordinator = swarm_core.coordinator:main',
             'avoidance_orca = swarm_core.avoidance_orca:main',
             'coverage = swarm_core.coverage:main',
+            'gazebo_formation_controller = swarm_core.gazebo_formation_controller:main',
+            'test_formation_commands = swarm_core.test_formation_commands:main',
         ],
     },
 )
