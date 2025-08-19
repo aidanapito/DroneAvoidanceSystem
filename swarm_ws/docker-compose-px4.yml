@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  px4_sitl_1:
+    image: ubuntu:22.04
+    container_name: px4_sitl_1
+    environment:
+      - ROS_DOMAIN_ID=0
+    ports:
+      - "14540:14540"
+    volumes:
+      - .:/workspace
+    command: >
+      bash -c "
+        echo 'Starting PX4 SITL instance 1 on port 14540...' &&
+        echo 'Container ready - PX4 SITL will be installed in next step' &&
+        tail -f /dev/null
+      "
+
+  px4_sitl_2:
+    image: ubuntu:22.04
+    container_name: px4_sitl_2
+    environment:
+      - ROS_DOMAIN_ID=0
+    ports:
+      - "14541:14541"
+    volumes:
+      - .:/workspace
+    command: >
+      bash -c "
+        echo 'Starting PX4 SITL instance 2 on port 14541...' &&
+        echo 'Container ready - PX4 SITL will be installed in next step' &&
+        tail -f /dev/null
+      "
+
+  px4_sitl_3:
+    image: ubuntu:22.04
+    container_name: px4_sitl_3
+    environment:
+      - ROS_DOMAIN_ID=0
+    ports:
+      - "14542:14542"
+    volumes:
+      - .:/workspace
+    command: >
+      bash -c "
+        echo 'Starting PX4 SITL instance 3 on port 14542...' &&
+        echo 'Container ready - PX4 SITL will be installed in next step' &&
+        tail -f /dev/null
+      "
