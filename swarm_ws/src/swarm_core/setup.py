@@ -30,6 +30,7 @@ setup(
             'coverage = swarm_core.coverage:main',
             'gazebo_formation_controller = swarm_core.gazebo_formation_controller:main',
             'test_formation_commands = swarm_core.test_formation_commands:main',
+            'moving_obstacles_controller = swarm_core.moving_obstacles_controller:main',
         ],
     },
 )

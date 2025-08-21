@@ -1,0 +1,231 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="moving_obstacles_world">
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+    <!-- Ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+    <!-- Moving Obstacle 1: Horizontal Patrol -->
+    <model name="moving_obstacle_1">
+      <static>false</static>
+      <link name="obstacle_link">
+        <visual name="obstacle_visual">
+          <geometry>
+            <box>
+              <size>2.0 0.5 3.0</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.4 0.0 1</ambient>
+            <diffuse>0.8 0.4 0.0 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+        <collision name="obstacle_collision">
+          <geometry>
+            <box>
+              <size>2.0 0.5 3.0</size>
+            </box>
+          </geometry>
+        </collision>
+        <inertial>
+          <mass>10.0</mass>
+          <inertia>
+            <ixx>2.0</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.5</iyy>
+            <iyz>0</iyz>
+            <izz>2.0</izz>
+          </inertia>
+        </inertial>
+      </link>
+      
+      <!-- Initial pose -->
+      <pose>0 0 1.5 0 0 0</pose>
+      
+      <!-- Plugin for movement -->
+      <plugin name="horizontal_mover" filename="libgazebo_ros_planar_move.so">
+        <commandTopic>/obstacle1/cmd_vel</commandTopic>
+        <odometryTopic>/obstacle1/odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>20.0</odometryRate>
+        <rosDebugLevel>Debug</rosDebugLevel>
+        <robotBaseFrame>base_link</robotBaseFrame>
+      </plugin>
+    </model>
+    
+    <!-- Moving Obstacle 2: Vertical Patrol -->
+    <model name="moving_obstacle_2">
+      <static>false</static>
+      <link name="obstacle_link">
+        <visual name="obstacle_visual">
+          <geometry>
+            <box>
+              <size>0.5 2.0 3.0</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.0 0.4 0.8 1</ambient>
+            <diffuse>0.0 0.4 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+        <collision name="obstacle_collision">
+          <geometry>
+            <box>
+              <size>0.5 2.0 3.0</size>
+            </box>
+          </geometry>
+        </collision>
+        <inertial>
+          <mass>10.0</mass>
+          <inertia>
+            <ixx>0.5</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>2.0</iyy>
+            <iyz>0</iyz>
+            <izz>2.0</izz>
+          </inertia>
+        </inertial>
+      </link>
+      
+      <!-- Initial pose -->
+      <pose>0 0 1.5 0 0 0</pose>
+      
+      <!-- Plugin for movement -->
+      <plugin name="vertical_mover" filename="libgazebo_ros_planar_move.so">
+        <commandTopic>/obstacle2/cmd_vel</commandTopic>
+        <odometryTopic>/obstacle2/odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>20.0</odometryRate>
+        <rosDebugLevel>Debug</rosDebugLevel>
+        <robotBaseFrame>base_link</robotBaseFrame>
+      </plugin>
+    </model>
+    
+    <!-- Moving Obstacle 3: Circular Pattern -->
+    <model name="moving_obstacle_3">
+      <static>false</static>
+      <link name="obstacle_link">
+        <visual name="obstacle_visual">
+          <geometry>
+            <sphere>
+              <radius>1.0</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0.0 0.8 1</ambient>
+            <diffuse>0.8 0.0 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+        <collision name="obstacle_collision">
+          <geometry>
+            <sphere>
+              <radius>1.0</radius>
+            </sphere>
+          </geometry>
+        </collision>
+        <inertial>
+          <mass>5.0</mass>
+          <inertia>
+            <ixx>0.4</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.4</iyy>
+            <iyz>0</iyz>
+            <izz>0.4</izz>
+          </inertia>
+        </inertial>
+      </link>
+      
+      <!-- Initial pose -->
+      <pose>5 0 1.0 0 0 0</pose>
+      
+      <!-- Plugin for circular movement -->
+      <plugin name="circular_mover" filename="libgazebo_ros_planar_move.so">
+        <commandTopic>/obstacle3/cmd_vel</commandTopic>
+        <odometryTopic>/obstacle3/odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>20.0</odometryRate>
+        <rosDebugLevel>Debug</rosDebugLevel>
+        <robotBaseFrame>base_link</robotBaseFrame>
+      </plugin>
+    </model>
+    
+    <!-- Static Obstacles for Complex Navigation -->
+    <model name="static_obstacle_1">
+      <static>true</static>
+      <link name="obstacle_link">
+        <visual name="obstacle_visual">
+          <geometry>
+            <box>
+              <size>1.0 1.0 4.0</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
+        </visual>
+        <collision name="obstacle_collision">
+          <geometry>
+            <box>
+              <size>1.0 1.0 4.0</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+      <pose>-3 -3 2.0 0 0 0</pose>
+    </model>
+    
+    <model name="static_obstacle_2">
+      <static>true</static>
+      <link name="obstacle_link">
+        <visual name="obstacle_visual">
+          <geometry>
+            <box>
+              <size>1.0 1.0 4.0</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
+        </visual>
+        <collision name="obstacle_collision">
+          <geometry>
+            <box>
+              <size>1.0 1.0 4.0</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+      <pose>3 3 2.0 0 0 0</pose>
+    </model>
+    
+    <!-- Physics settings for smooth movement -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.81</gravity>
+    </physics>
+    
+    <!-- GUI settings -->
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0 0 20 0 1.5708 0</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>
