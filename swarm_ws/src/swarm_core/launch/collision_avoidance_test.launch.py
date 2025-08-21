@@ -70,8 +70,7 @@ def generate_launch_description():
         # Launch Gazebo in headless mode
         ExecuteProcess(
             cmd=['gazebo', '--headless', LaunchConfiguration('world_file')],
-            output='screen',
-            prefix='Gazebo: '
+            output='screen'
         ),
         
         # Launch Formation Controller with Collision Avoidance
