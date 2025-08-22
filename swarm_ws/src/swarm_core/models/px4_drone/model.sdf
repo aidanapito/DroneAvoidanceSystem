@@ -10,7 +10,7 @@
         <geometry>
           <box>
             <size>0.4 0.4 0.12</size>
-          </geometry>
+          </box>
         </geometry>
         <material>
           <ambient>0.8 0.8 0.8 1</ambient>
@@ -24,8 +24,8 @@
         <geometry>
           <box>
             <size>0.4 0.4 0.12</size>
-          </geometry>
-        </collision>
+          </box>
+        </geometry>
         <surface>
           <contact>
             <ode>
@@ -60,7 +60,7 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
+          </cylinder>
         </geometry>
         <material>
           <ambient>0.1 0.1 0.1 1</ambient>
@@ -75,8 +75,8 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
-        </collision>
+          </cylinder>
+        </geometry>
       </collision>
       
       <!-- Propeller inertial -->
@@ -100,7 +100,7 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
+          </cylinder>
         </geometry>
         <material>
           <ambient>0.1 0.1 0.1 1</ambient>
@@ -114,8 +114,8 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
-        </collision>
+          </cylinder>
+        </geometry>
       </collision>
       
       <inertial>
@@ -138,7 +138,7 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
+          </cylinder>
         </geometry>
         <material>
           <ambient>0.1 0.1 0.1 1</ambient>
@@ -152,8 +152,8 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
-        </collision>
+          </cylinder>
+        </geometry>
       </collision>
       
       <inertial>
@@ -176,7 +176,7 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
+          </cylinder>
         </geometry>
         <material>
           <ambient>0.1 0.1 0.1 1</ambient>
@@ -190,8 +190,8 @@
           <cylinder>
             <radius>0.08</radius>
             <length>0.01</length>
-          </geometry>
-        </collision>
+          </cylinder>
+        </geometry>
       </collision>
       
       <inertial>
@@ -214,7 +214,7 @@
           <cylinder>
             <radius>0.02</radius>
             <length>0.05</length>
-          </geometry>
+          </cylinder>
         </geometry>
         <material>
           <ambient>0.2 0.2 0.8 1</ambient>
