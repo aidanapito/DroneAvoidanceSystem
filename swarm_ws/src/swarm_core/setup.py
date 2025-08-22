@@ -23,14 +23,15 @@ setup(
     description='Multi-UAV swarm coordination with ORCA collision avoidance and grid coverage',
     license='MIT',
     tests_require=['pytest'],
-    entry_points={
-        'console_scripts': [
-            'coordinator = swarm_core.coordinator:main',
-            'avoidance_orca = swarm_core.avoidance_orca:main',
-            'coverage = swarm_core.coverage:main',
-            'gazebo_formation_controller = swarm_core.gazebo_formation_controller:main',
-            'test_formation_commands = swarm_core.test_formation_commands:main',
-            'moving_obstacles_controller = swarm_core.moving_obstacles_controller:main',
-        ],
-    },
+            entry_points={
+            'console_scripts': [
+                'coordinator = swarm_core.coordinator:main',
+                'avoidance_orca = swarm_core.avoidance_orca:main',
+                'coverage = swarm_core.coverage:main',
+                'gazebo_formation_controller = swarm_core.gazebo_formation_controller:main',
+                'test_formation_commands = swarm_core.test_formation_commands:main',
+                'moving_obstacles_controller = swarm_core.moving_obstacles_controller:main',
+                'test_orca_algorithm = swarm_core.test_orca_algorithm:main',
+            ],
+        },
 )
