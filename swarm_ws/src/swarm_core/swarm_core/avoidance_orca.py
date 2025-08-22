@@ -161,7 +161,11 @@ class ORCACollisionAvoidance(Node):
             subscriber = self.create_subscription(
                 Odometry, topic_name,
                 lambda msg, name=uav_name: self._odometry_callback(msg, name),
-                QoSProfile(reliability=ReliabilityPolicy.BEST_EFFORT)
+                QoSProfile(
+                    reliability=ReliabilityPolicy.BEST_EFFORT,
+                    history=HistoryPolicy.KEEP_LAST,
+                    depth=10
+                )
             )
             self.odom_subscribers[uav_name] = subscriber
     
