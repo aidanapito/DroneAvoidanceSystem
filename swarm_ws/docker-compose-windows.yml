@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # ROS 2 + Gazebo container for Windows
+  ros2_gazebo:
+    image: osrf/ros:humble-desktop-full
+    container_name: ros2_gazebo_formation_win
+    environment:
+      - ROS_DOMAIN_ID=0
+      - GAZEBO_MODEL_PATH=/opt/ros/humble/share/gazebo-11/models
+      - DISPLAY=host.docker.internal:0.0
+    volumes:
+      - .:/workspace
+      - C:\Users\19739\OneDrive\Documents\DroneAvoidanceSystem\swarm_ws:/workspace
+    ports:
+      - "11311:11311"  # ROS master
+      - "14540:14540"  # MAVSDK port 1
+      - "14541:14541"  # MAVSDK port 2
+      - "14542:14542"  # MAVSDK port 3
+    privileged: true
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "
+        echo '🚀 ROS 2 + Gazebo container starting on Windows...' &&
+        echo 'Installing additional packages...' &&
+        apt-get update &&
+        apt-get install -y python3-pip python3-numpy python3-matplotlib &&
+        apt-get install -y gazebo11 libgazebo11-dev &&
+        pip3 install mavsdk &&
+        echo 'Starting Gazebo...' &&
+        gazebo --verbose /workspace/worlds/px4_formation_flying.world &
+        echo 'Starting ROS 2...' &&
+        source /opt/ros/humble/setup.bash &&
+        echo 'Container ready! Use docker exec to run commands.' &&
+        tail -f /dev/null
+      "
+
+  # Formation controller container
+  formation_controller:
+    image: osrf/ros:humble-desktop-full
+    container_name: formation_controller_win
+    environment:
+      - ROS_DOMAIN_ID=0
+    volumes:
+      - .:/workspace
+      - C:\Users\19739\OneDrive\Documents\DroneAvoidanceSystem\swarm_ws:/workspace
+    depends_on:
+      - ros2_gazebo
+    command: >
+      bash -c "
+        echo '🤖 Formation controller starting on Windows...' &&
+        source /opt/ros/humble/setup.bash &&
+        cd /workspace &&
+        echo 'Building workspace...' &&
+        colcon build --packages-select swarm_core &&
+        echo 'Formation controller ready!' &&
+        tail -f /dev/null
+      "
