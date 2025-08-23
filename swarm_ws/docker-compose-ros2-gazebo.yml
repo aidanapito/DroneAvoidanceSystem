@@ -9,6 +9,7 @@ services:
       - DISPLAY=${DISPLAY}
       - ROS_DOMAIN_ID=0
       - GAZEBO_MODEL_PATH=/opt/ros/humble/share/gazebo-11/models
+      - QT_X11_NO_MITSHM=1
     volumes:
       - .:/workspace
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
@@ -24,16 +25,15 @@ services:
     tty: true
     command: >
       bash -c "
-        echo '🚀 ROS 2 + Gazebo container starting...' &&
+        echo '🚀 ROS 2 + Ignition Gazebo container starting...' &&
         echo 'Installing additional packages...' &&
         apt-get update &&
         apt-get install -y python3-pip python3-numpy python3-matplotlib &&
         pip3 install mavsdk &&
-        echo 'Starting Gazebo...' &&
-        gazebo --verbose /opt/ros/humble/share/gazebo-11/worlds/empty.world &
-        echo 'Starting ROS 2...' &&
+        echo 'Starting Ignition Gazebo...' &&
         source /opt/ros/humble/setup.bash &&
         echo 'Container ready! Use docker exec to run commands.' &&
+        echo 'To start Gazebo: ros2 launch ros_ign_gazebo ign_gazebo.launch.py' &&
         tail -f /dev/null
       "
 
