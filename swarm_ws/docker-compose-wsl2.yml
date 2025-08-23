@@ -1,18 +1,16 @@
-version: '3.8'
-
 services:
-  # ROS 2 + Gazebo container for Windows
+  # ROS 2 + Gazebo container for Windows with WSL2
   ros2_gazebo:
     image: osrf/ros:humble-desktop-full
-    container_name: ros2_gazebo_formation_win
+    container_name: ros2_gazebo_formation_wsl2
     environment:
       - ROS_DOMAIN_ID=0
       - GAZEBO_MODEL_PATH=/opt/ros/humble/share/gazebo-11/models
       - DISPLAY=host.docker.internal:0.0
       - LIBGL_ALWAYS_INDIRECT=1
+      - QT_X11_NO_MITSHM=1
     volumes:
       - .:/workspace
-      - C:\Users\19739\OneDrive\Documents\DroneAvoidanceSystem\swarm_ws:/workspace
     ports:
       - "11311:11311"  # ROS master
       - "14540:14540"  # MAVSDK port 1
@@ -21,11 +19,10 @@ services:
     privileged: true
     stdin_open: true
     tty: true
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    network_mode: host
     command: >
       bash -c "
-        echo '🚀 ROS 2 + Gazebo container starting on Windows with GUI...' &&
+        echo '🚀 ROS 2 + Gazebo container starting on Windows with WSL2...' &&
         echo 'Installing additional packages...' &&
         apt-get update &&
         apt-get install -y python3-pip python3-numpy python3-matplotlib &&
@@ -34,6 +31,7 @@ services:
         echo 'Starting Gazebo with GUI...' &&
         export DISPLAY=host.docker.internal:0.0 &&
         export LIBGL_ALWAYS_INDIRECT=1 &&
+        export QT_X11_NO_MITSHM=1 &&
         gazebo --verbose /workspace/worlds/px4_formation_flying.world &
         echo 'Starting ROS 2...' &&
         source /opt/ros/humble/setup.bash &&
@@ -44,12 +42,11 @@ services:
   # Formation controller container
   formation_controller:
     image: osrf/ros:humble-desktop-full
-    container_name: formation_controller_win
+    container_name: formation_controller_wsl2
     environment:
       - ROS_DOMAIN_ID=0
     volumes:
       - .:/workspace
-      - C:\Users\19739\OneDrive\Documents\DroneAvoidanceSystem\swarm_ws:/workspace
     depends_on:
       - ros2_gazebo
     command: >

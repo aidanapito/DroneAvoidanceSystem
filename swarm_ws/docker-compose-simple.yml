@@ -1,0 +1,22 @@
+services:
+  # ROS 2 formation controller container
+  formation_controller:
+    image: osrf/ros:humble-desktop-full
+    container_name: formation_controller_simple
+    environment:
+      - ROS_DOMAIN_ID=0
+    volumes:
+      - .:/workspace
+    ports:
+      - "11311:11311"  # ROS master
+    command: >
+      bash -c "
+        echo '🤖 ROS 2 Formation Controller starting...' &&
+        source /opt/ros/humble/setup.bash &&
+        cd /workspace &&
+        echo 'Building workspace...' &&
+        colcon build --packages-select swarm_core &&
+        echo 'Formation controller ready! Starting formation demo...' &&
+        source /workspace/install/setup.bash &&
+        python3 /workspace/gazebo_formation_controller.py
+      "
