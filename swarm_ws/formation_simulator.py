@@ -224,7 +224,7 @@ class FormationSimulator:
         t = current_time * 0.1
         radius = 8.0
         new_x = radius * math.cos(t)
-        new_y = radius * math.sin(y)
+        new_y = radius * math.sin(t)
         self.move_formation((new_x, new_y))
         
         # Update drone positions
