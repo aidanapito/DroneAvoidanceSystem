@@ -8,7 +8,7 @@ for safe velocity planning in multi-UAV swarms.
 
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
+from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy, HistoryPolicy
 from rclpy.callback_groups import ReentrantCallbackGroup
 
 import numpy as np
@@ -114,12 +114,16 @@ class ORCACollisionAvoidance(Node):
         # QoS profiles
         reliable_qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
-            durability=DurabilityPolicy.TRANSIENT_LOCAL
+            durability=DurabilityPolicy.TRANSIENT_LOCAL,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=10
         )
         
         fast_qos = QoSProfile(
             reliability=ReliabilityPolicy.BEST_EFFORT,
-            durability=DurabilityPolicy.VOLATILE
+            durability=DurabilityPolicy.VOLATILE,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=10
         )
         
         # Publishers
@@ -157,7 +161,11 @@ class ORCACollisionAvoidance(Node):
             subscriber = self.create_subscription(
                 Odometry, topic_name,
                 lambda msg, name=uav_name: self._odometry_callback(msg, name),
-                QoSProfile(reliability=ReliabilityPolicy.BEST_EFFORT)
+                QoSProfile(
+                    reliability=ReliabilityPolicy.BEST_EFFORT,
+                    history=HistoryPolicy.KEEP_LAST,
+                    depth=10
+                )
             )
             self.odom_subscribers[uav_name] = subscriber
     
